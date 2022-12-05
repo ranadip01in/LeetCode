@@ -6,6 +6,9 @@ using namespace std;
 class Solution {
   public:
     // Function to detect cycle in an undirected graph.
+    // DFS----
+    // TC - O(N+2E)(DFS) + O(N) 
+    // SC - O(N)(VIS) + O(N)(STACK)
     bool dfs(int node,int parent,vector<int>&vis,vector<int> adj[]){
         vis[node]=1;
         bool hasCycle=false;
