@@ -9,6 +9,8 @@ using namespace std;
 
 class Solution{
 public:
+// TC - O(n+m)(LOOP) + O(4*n*m)(DFS)
+// SC - O(n*m)(VIS)
     void dfs(int row,int col,vector<vector<int>>& vis,vector<vector<char>> &mat){
         vis[row][col]=1;
         int n=mat.size();
