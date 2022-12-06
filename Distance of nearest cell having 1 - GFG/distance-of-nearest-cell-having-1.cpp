@@ -6,7 +6,8 @@ using namespace std;
 class Solution 
 {
     public:
-// 
+//TC - O(n*m)(MATRIX) + O(4*n*m)(QUE)
+//SC - O(n*m)(VIS) + O(n*m)(QUE) + O(n*m)(DISTS)
     //Function to find distance of nearest 1 in the grid for each cell.
 	vector<vector<int>>nearest(vector<vector<int>>&grid)
 	{
