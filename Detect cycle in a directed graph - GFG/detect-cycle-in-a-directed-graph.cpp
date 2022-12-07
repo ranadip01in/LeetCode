@@ -6,7 +6,8 @@ using namespace std;
 class Solution {
   public:
     // Function to detect cycle in a directed graph.
-    
+    //TC - O(N)(NODE) + O(N+E)(DFS on Direct Graph)
+    // sc
     bool dfs(int node,vector<int>&pathVis,vector<int>&vis,vector<int>adj[]){
         vis[node]=1;
         pathVis[node]=1;
