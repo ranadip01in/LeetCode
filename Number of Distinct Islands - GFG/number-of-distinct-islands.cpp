@@ -9,6 +9,9 @@ using namespace std;
 
 class Solution {
   public:
+  // N - n*m
+  //TC - O(N*(LogN)(SET))(MATRIX) + O(4*N)(DFS) 
+  //SC - O(N)(VIS) + O(N)(VP) + O(N)(SET)
     void dfs(int row,int col,vector<vector<int>>&vis,vector<vector<int>>&grid,vector<pair<int,int>>&vec,int row0,int col0){
         int n=grid.size();
         int m=grid[0].size();
