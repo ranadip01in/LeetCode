@@ -6,28 +6,27 @@ using namespace std;
 class Solution {
   public:
     // Function to detect cycle in a directed graph.
-//TC - O(N)(NODE) + O(N+E)(DFS on Direct Graph)
-// SC - O(N)(STACK) + O(N+N)(VIS+pathVis)
-    bool dfs(int node,vector<int>&pathVis,vector<int>&vis,vector<int>adj[]){
-        vis[node]=1;
-        pathVis[node]=1;
-        for(auto adjacentNode:adj[node]){
-            if(!vis[adjacentNode]){
-                if(dfs(adjacentNode,pathVis,vis,adj)) return true;
-            }else if(pathVis[adjacentNode]==1) return true;
-        }
-        pathVis[node]=0;
-        return false;
-    }
-    bool isCyclic(int V,vector<int> adj[]) {
+    bool isCyclic(int V, vector<int> adj[]) {
         // code here
-        vector<int>vis(V,0),pathVis(V,0);
-        for(int i=0;i<V;++i){
-            if(!vis[i]){
-                if(dfs(i,pathVis,vis,adj)) return true;
-            }
-        }
-        return false;
+        queue<int> q;
+	    vector<int> inDegree(V,0);
+	    for(int i=0;i<V;++i){
+	        for(auto it:adj[i]) inDegree[it]++;
+	    }
+	    for(int i=0;i<V;++i){
+	        if(inDegree[i]==0) q.push(i);
+	    }
+	    int cnt=0;
+	    while(!q.empty()){
+	        int node=q.front();
+	        ++cnt;
+	        q.pop();
+	        for(auto it:adj[node]){
+	            inDegree[it]--;
+	            if(inDegree[it]==0) q.push(it);
+	        }
+	    }
+	    return cnt!=V;
     }
 };
 
