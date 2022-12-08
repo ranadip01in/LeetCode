@@ -6,6 +6,8 @@ using namespace std;
 class Solution
 {
 	public:
+	//TC - O(N)(NODE) + O(N+E)(DFS)
+	//SC - O(N)(VIS)
 	void dfs(int node,int vis[],vector<int> adj[],stack<int>&stk){
 	    vis[node]=1;
 	    for(auto adjacentNode:adj[node]){
