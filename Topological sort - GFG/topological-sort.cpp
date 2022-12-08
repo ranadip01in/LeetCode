@@ -5,31 +5,29 @@ using namespace std;
 // } Driver Code Ends
 class Solution
 {
-	public:
-	//TC - O(N)(NODE) + O(N+E)(DFS)
-	//SC - O(N)(VIS)
-	void dfs(int node,int vis[],vector<int> adj[],stack<int>&stk){
-	    vis[node]=1;
-	    for(auto adjacentNode:adj[node]){
-	        if(!vis[adjacentNode]) dfs(adjacentNode,vis,adj,stk);
-	    }
-	    stk.push(node);
-	}
-	vector<int> topoSort(int V,vector<int> adj[]) 
+public:
+//TC - O(N+E)(BFS)
+//SC - O(N)(QUE) + O(N)(inDegree) + O(N)(topo)
+	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
-	    int vis[V]={0};
-	    stack<int> stk;
-	    vector<int>ans;
+	    queue<int> q;
+	    vector<int> topo,inDegree(V,0);
 	    for(int i=0;i<V;++i){
-	        if(!vis[i]){
-	            dfs(i,vis,adj,stk);
+	        for(auto it:adj[i]) inDegree[it]++;
+	    }
+	    for(int i=0;i<V;++i){
+	        if(inDegree[i]==0) q.push(i);
+	    }
+	    while(!q.empty()){
+	        int node=q.front();
+	        q.pop();
+	        topo.push_back(node);
+	        for(auto it:adj[node]){
+	            inDegree[it]--;
+	            if(inDegree[it]==0) q.push(it);
 	        }
 	    }
-	    while(!stk.empty()){
-	        ans.push_back(stk.top());
-	        stk.pop();
-	    }
-	    return ans;
+	    return topo;
 	}
 };
 
