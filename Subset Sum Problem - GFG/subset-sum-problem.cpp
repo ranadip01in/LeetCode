@@ -9,9 +9,9 @@ using namespace std;
 
 class Solution{   
 public:
-//DP + Tabulation
+//DP + Space Optimization
 //TC - O(n*k)
-//SC - O(n*k)
+//SC - O(k)
     bool isSubsetSum(vector<int>nums, int sum){
         int n = nums.size();
         vector<bool> dp(sum+1,false),curr(sum+1);
