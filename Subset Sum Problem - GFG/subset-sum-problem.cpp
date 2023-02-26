@@ -14,18 +14,19 @@ public:
 //SC - O(n*k)
     bool isSubsetSum(vector<int>nums, int sum){
         int n = nums.size();
-        vector<vector<bool>> dp(n,vector<bool>(sum+1,false));
-        for(int i=0;i<n;++i) dp[i][0] = true;
-        dp[0][nums[0]] = true;
+        vector<bool> dp(sum+1,false),curr(sum+1);
+        dp[0]=curr[0]=1;
+        dp[nums[0]]=1;
         for(int i=1;i<n;++i){
             for(int j=1;j<=sum;++j){
-                bool nonTake = dp[i-1][j];
+                bool nonTake = dp[j];
                 bool take = false;
-                if(j>=nums[i]) take = dp[i-1][j-nums[i]];
-                dp[i][j] = take or nonTake;
+                if(j>=nums[i]) take = dp[j-nums[i]];
+                curr[j] = take or nonTake;
             }
+            dp=curr;
         }
-        return dp[n-1][sum];
+        return dp[sum];
         
     }
 };
