@@ -25,6 +25,7 @@ class Solution{
         }
         int mini=1e8;
         for(int s1=0;s1<=sum/2;++s1){
+            // s2=abs(sum-s1)
             if(dp[n-1][s1]) mini=min(mini,abs(sum-s1)-s1);
         }
         return mini;
