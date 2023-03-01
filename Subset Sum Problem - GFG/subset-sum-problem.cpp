@@ -9,25 +9,21 @@ using namespace std;
 
 class Solution{   
 public:
-//DP + Space Optimization
-//TC - O(n*k)
-//SC - O(k)
-    bool isSubsetSum(vector<int>nums, int sum){
-        int n = nums.size();
-        vector<bool> dp(sum+1,false),curr(sum+1);
-        dp[0]=curr[0]=1;
-        dp[nums[0]]=1;
-        for(int i=1;i<n;++i){
-            for(int j=1;j<=sum;++j){
-                bool nonTake = dp[j];
-                bool take = false;
-                if(j>=nums[i]) take = dp[j-nums[i]];
-                curr[j] = take or nonTake;
-            }
-            dp=curr;
-        }
-        return dp[sum];
-        
+    bool countArrays(int idx,vector<int>&arr,vector<vector<int>>& dp,int sum){
+        if(sum==0) return true;
+        if(idx==0) return arr[0]==sum;
+        if(dp[idx][sum]!=-1) return dp[idx][sum];
+        int notTake = countArrays(idx-1,arr,dp,sum);
+        int take = false;
+        if(arr[idx]<=sum) take = countArrays(idx-1,arr,dp,sum-arr[idx]);
+        dp[idx][sum] = take||notTake;
+        return dp[idx][sum];
+    }
+    bool isSubsetSum(vector<int>arr, int sum){
+        // code here 
+        int n = arr.size();
+        vector<vector<int>> dp(n,vector<int>(sum+1,-1));
+        return countArrays(n-1,arr,dp,sum);
     }
 };
 
