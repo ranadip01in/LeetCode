@@ -8,20 +8,19 @@ class Solution
 {
 //DP + Space Optimization
 //TC - O(n*w)
-//SC - O(2w)
+//SC - O(w)
     public:
     int knapSack(int w, int wt[], int val[], int n) 
     { 
-       vector<int> dp(w+1),curr(w+1);
+       vector<int> dp(w+1);
        for(int i=wt[0];i<=w;++i) dp[i]=val[0];
        for(int i=1;i<n;++i){
-           for(int j=1;j<=w;++j){
+           for(int j=w;j>=0;--j){
                int notTake = dp[j];
                 int take=0;
                 if(j>=wt[i]) take = val[i] + dp[j-wt[i]];
-                curr[j] = max(take,notTake);
+                dp[j] = max(take,notTake);
            }
-           dp=curr;
        }
        return dp[w];
     }
