@@ -6,26 +6,23 @@ using namespace std;
 // } Driver Code Ends
 class Solution
 {
-//DP+Memoization
+//DP + Tabulation
 //TC - O(n*w)
 //SC - O(n*w)
     public:
-    int maxItem(int idx,int w,int wt[], int val[],vector<vector<int>> &dp){
-        if(idx==0){
-            if(wt[0]<=w) return val[0];
-            return 0;
-        }
-        if(dp[idx][w]!=-1) return dp[idx][w];
-        int notTake = maxItem(idx-1,w,wt,val,dp);
-        int take=0;
-        if(w>=wt[idx]) take = val[idx] + maxItem(idx-1,w-wt[idx],wt,val,dp);
-        dp[idx][w] = max(take,notTake);
-        return dp[idx][w];
-    }
     int knapSack(int w, int wt[], int val[], int n) 
     { 
-       vector<vector<int>> dp(n,vector<int>(w+1,-1));
-       return maxItem(n-1,w,wt,val,dp);
+       vector<vector<int>> dp(n,vector<int>(w+1,0));
+       for(int i=wt[0];i<=w;++i) dp[0][i]=val[0];
+       for(int i=1;i<n;++i){
+           for(int j=1;j<=w;++j){
+               int notTake = dp[i-1][j];
+                int take=0;
+                if(j>=wt[i]) take = val[i] + dp[i-1][j-wt[i]];
+                dp[i][j] = max(take,notTake);
+           }
+       }
+       return dp[n-1][w];
     }
 };
 
