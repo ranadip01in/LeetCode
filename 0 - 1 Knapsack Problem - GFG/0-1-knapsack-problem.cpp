@@ -6,23 +6,24 @@ using namespace std;
 // } Driver Code Ends
 class Solution
 {
-//DP + Tabulation
+//DP + Space Optimization
 //TC - O(n*w)
-//SC - O(n*w)
+//SC - O(2w)
     public:
     int knapSack(int w, int wt[], int val[], int n) 
     { 
-       vector<vector<int>> dp(n,vector<int>(w+1,0));
-       for(int i=wt[0];i<=w;++i) dp[0][i]=val[0];
+       vector<int> dp(w+1),curr(w+1);
+       for(int i=wt[0];i<=w;++i) dp[i]=val[0];
        for(int i=1;i<n;++i){
            for(int j=1;j<=w;++j){
-               int notTake = dp[i-1][j];
+               int notTake = dp[j];
                 int take=0;
-                if(j>=wt[i]) take = val[i] + dp[i-1][j-wt[i]];
-                dp[i][j] = max(take,notTake);
+                if(j>=wt[i]) take = val[i] + dp[j-wt[i]];
+                curr[j] = max(take,notTake);
            }
+           dp=curr;
        }
-       return dp[n-1][w];
+       return dp[w];
     }
 };
 
