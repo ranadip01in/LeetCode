@@ -10,20 +10,26 @@ using namespace std;
 
 class Solution{   
 public:
-//TC - O(R*C*Log(2000))
+//TC - O(R*LogC*Log(2000))
     int check(vector<vector<int>> &matrix, int R, int C,int mid){
         int cnt=0;
-        for(auto row:matrix){
-            for(auto col:row) if(col<=mid) ++cnt;
+        for(int i=0;i<R;++i){
+            int left=0,right=C-1;
+            while(left<=right){
+                int mid1 = (left+right)/2;
+                if(matrix[i][mid1]>mid) right=mid1-1;
+                else left=mid1+1;
+            }
+            cnt+=left;
         }
         return cnt;
     }
     int median(vector<vector<int>> &matrix, int R, int C){
         int left=1,right=2000;
-        int total = R*C;
+        int median = (R*C)/2;
         while(left<=right){
             int mid = (left+right)/2;
-            if(check(matrix,R,C,mid)>total/2) right=mid-1;
+            if(check(matrix,R,C,mid)>median) right=mid-1;
             else left=mid+1;
         }
         return left;
