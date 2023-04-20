@@ -5,7 +5,7 @@ using namespace std;
 
 // } Driver Code Ends
 //User function Template for C++
-
+//Sol - 1
 class Solution {
 public:
     vector<vector<string>> findSequences(string beginWord, string endWord, vector<string>& wordList) {
@@ -26,7 +26,7 @@ public:
             if(tmp.size()>level){
                 level+=1;
                 for(auto it:used) st.erase(it);
-                used.clear();
+                // used.clear();
             }
             string word=tmp.back();
             if(word==endWord){
