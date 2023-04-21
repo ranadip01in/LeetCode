@@ -6,7 +6,7 @@ using namespace std;
 class Solution
 {
 public:
-//TC - O(V+2E)*LogV
+//TC - O(E*LogV) 
 //SC - O(V)
 //using Set
     vector<int> dijkstra(int V, vector<vector<int>> adj[], int S)
