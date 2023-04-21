@@ -8,6 +8,7 @@ class Solution
 public:
 //TC - O(V+2E)*LogV
 //SC - O(V)
+//using min-Heap
     vector<int> dijkstra(int V, vector<vector<int>> adj[], int S)
     {
         vector<int>dist(V,1e9);
