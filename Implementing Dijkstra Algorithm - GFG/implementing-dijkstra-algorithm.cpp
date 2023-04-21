@@ -8,23 +8,24 @@ class Solution
 public:
 //TC - O(V+2E)*LogV
 //SC - O(V)
-//using min-Heap
+//using Set
     vector<int> dijkstra(int V, vector<vector<int>> adj[], int S)
     {
         vector<int>dist(V,1e9);
         dist[S]=0;
         priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
-        pq.push({0,S});
-        while(!pq.empty()){
-            int u = pq.top().second;
-            int dis = pq.top().first;
-            pq.pop();
+        set<pair<int,int>> st;
+        st.insert({0,S});
+        while(!st.empty()){
+            int u = st.begin()->second;
+            int dis = st.begin()->first;
+            st.erase({dis,u});
             for(auto it:adj[u]){
                 int v = it[0];
                 int edgeWt = it[1];
                 if(dis+edgeWt<dist[v]){
                     dist[v]=dis+edgeWt;
-                    pq.push({dist[v],v});
+                    st.insert({dist[v],v});
                 }
             }
         }
