@@ -6,26 +6,19 @@ typedef long long int ll;
 // } Driver Code Ends
 class Solution
 {
-//DP + Memoization
-//TC - O(N)
-//SC - O(N)
-//Find best subsequence sum [0..idx]
     public:
-    //Function to find the maximum money the thief can get.
-    int robHouse(int idx,int nums[],int dp[]){
+    int loot(int arr[],vector<int> &dp,int idx){
         if(idx<0) return 0;
+        if(idx==0) return arr[0];
         if(dp[idx]!=-1) return dp[idx];
-        int pick = robHouse(idx-2,nums,dp) + nums[idx];
-        int nonPick = robHouse(idx-1,nums,dp);
-        dp[idx] = max(pick,nonPick);
-        return dp[idx];
+        int left = arr[idx]+loot(arr,dp,idx-2);
+        int right = loot(arr,dp,idx-1);
+        return dp[idx]=max(left,right);
     }
-    int FindMaxSum(int nums[], int n)
+    int FindMaxSum(int arr[], int n)
     {
-        // Your code here
-        int dp[n];
-        memset(dp,-1,sizeof(dp));
-        return robHouse(n-1,nums,dp);
+        vector<int> dp(n,-1);
+        return loot(arr,dp,n-1);
     }
 };
 
